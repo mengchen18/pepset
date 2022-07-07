@@ -2,7 +2,7 @@
 # number of cores used in tryptic digestion
 ncores  <- 8
 # root directory
-root <- "~/projects"
+root <- "/home/shiny/projects"
 
 ##########################
 

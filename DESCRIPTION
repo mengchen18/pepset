@@ -1,0 +1,12 @@
+Package: pepset
+Type: Package
+Title: Tryptic peptides similarity among multiple organisms
+Version: 0.1.0
+Date: 2022-07-08
+Author: Chen Meng
+Maintainer: Chen Meng <mengchen18@gmail.com>
+Imports: parallel, seqinr, stringr, reshape2, philentropy, shinyFiles, shiny, plotly, ggplot2, ggdendro, DT
+Description: Given protein sequences of multiple organisms, pepset will stats how similar the tryptic peptides will be among these organisms.
+License: AGPL
+Encoding: UTF-8
+RoxygenNote: 7.1.2

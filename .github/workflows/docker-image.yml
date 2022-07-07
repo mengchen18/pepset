@@ -35,7 +35,7 @@ jobs:
       id: docker_build
       uses: docker/build-push-action@v2
       with:
-        context: ./inst/extdata
+        context: .
         # file: ./inst/extdata/Dockerfile
         push: true
         tags: mengchen18/pepset:${{ env.packageVersion }}

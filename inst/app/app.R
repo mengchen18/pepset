@@ -50,23 +50,27 @@ server <- function(input, output, session) {
     ))
     ll <- pepset:::loadObj(f = fastaPath(), ncores = ncores)
     removeModal()
+    
     ################ dendrogram #############
     h <- ll$hcl
-    dhc <- as.dendrogram(h)
-    data <- dendro_data(dhc, type = "rectangle")
-    fs <- length(unique(ll$bar$fasta))
-    p1 <- ggplot(segment(data)) +
-      geom_segment(aes(x = x, y = y, xend = xend, yend = yend)) +
-      coord_flip() +
-      scale_y_reverse() +
-      coord_flip(xlim = c(0.5, fs+0.5), ylim = c(1.01, 0), expand=FALSE) +
-      theme_minimal() +
-      theme(
-        axis.title.y=element_blank(),
-        axis.text.y=element_blank(),
-        axis.ticks.y=element_blank()
-      ) +
-      labs(y = "Jaccard distance")
+    if (inherits(h, "hclust")) {
+      dhc <- as.dendrogram(h)
+      data <- dendro_data(dhc, type = "rectangle")
+      fs <- length(unique(ll$bar$fasta))
+      p1 <- ggplot(segment(data)) +
+        geom_segment(aes(x = x, y = y, xend = xend, yend = yend)) +
+        coord_flip() +
+        scale_y_reverse() +
+        coord_flip(xlim = c(0.5, fs+0.5), ylim = c(1.01, 0), expand=FALSE) +
+        theme_minimal() +
+        theme(
+          axis.title.y=element_blank(),
+          axis.text.y=element_blank(),
+          axis.ticks.y=element_blank()
+        ) +
+        labs(y = "Jaccard distance")
+    } else
+      p1 <- NULL
     
     ############ bar chart ############
     
@@ -100,7 +104,10 @@ server <- function(input, output, session) {
   
   output$path <- renderText(fastaPath())
   
-  output$p1 <- renderPlotly(ggplotly(obj()$p1))
+  output$p1 <- renderPlotly({
+    req(obj()$p1)
+    ggplotly(obj()$p1)
+    })
   output$p2 <- renderPlotly(ggplotly(obj()$p2))
   output$p3 <- renderPlotly(ggplotly(obj()$p3))
   

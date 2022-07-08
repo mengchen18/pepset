@@ -109,10 +109,13 @@ peptideStats <- function(bmat, filter = FALSE) {
   
   # clustering
   x <- as.matrix(bmat[, -(1:4)])
-  d <- distance(t(x), method = "jaccard")
-  rownames(d) <- colnames(d) <- colnames(x)
-  d <- as.dist(d)
-  h <- hclust(d)
+  if (ncol(x) > 2) {
+    d <- distance(t(x), method = "jaccard")
+    rownames(d) <- colnames(d) <- colnames(x)
+    d <- as.dist(d)
+    h <- hclust(d)
+  } else 
+    h <- list(order = seq_len(ncol(x)))
   
   # barplot obj
   an <- as.character(sort(unique(bmat$n)))

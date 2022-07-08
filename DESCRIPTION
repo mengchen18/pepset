@@ -1,7 +1,7 @@
 Package: pepset
 Type: Package
 Title: Tryptic peptides similarity among multiple organisms
-Version: 0.1.0
+Version: 0.1.1
 Date: 2022-07-08
 Author: Chen Meng
 Maintainer: Chen Meng <mengchen18@gmail.com>
